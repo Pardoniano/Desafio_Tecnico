@@ -28,5 +28,23 @@ export class Function_PO {
       .eq(randomOptionChooseOne)
       .click({ force: true });
   }
-  static chooseMultiple() {}
+  static chooseMutiple(optionName) {
+    cy.get(`input[name="${optionName}"]`)
+      .as("options")
+      .its("length", { log: false })
+      .then((n) => {
+        cy.get("@options", { log: false }).then(() => {
+          function randomNumberIndex(min, max) {
+            return Math.round(Math.random() * (max - min) + min);
+          }
+          const randomOptionIndex = randomNumberIndex(0, n - 1);
+          cy.get(`input[name="${optionName}"]`)
+            .eq(randomOptionIndex)
+            .click({ force: true })
+            .should("exist")
+            .should("not.be.null")
+            .should("be.visible");
+        });
+      });
+  }
 }

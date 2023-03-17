@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import { faker } from "@faker-js/faker";
-import { timeout } from "async";
 import { Function_PO } from "./Functions_PO";
 faker.locale = "en";
 export class Forms_PO {
@@ -48,7 +47,7 @@ export class Forms_PO {
     cy.get("#zipcode").type(faker.address.zipCode("####"));
     cy.get("#city").type(faker.address.city());
     Function_PO.dropDown("occupation");
-    cy.get("#speeding").click({ force: true });
+    Function_PO.chooseMutiple("Hobbies");
     cy.get("#website").type(faker.internet.domainName());
     cy.get("#picturecontainer").selectFile(
       "cypress/fixtures/images/beserk.jpg",
@@ -66,7 +65,7 @@ export class Forms_PO {
     Function_PO.dropDown("insurancesum");
     Function_PO.dropDown("meritrating");
     Function_PO.dropDown("damageinsurance");
-    Function_PO.chooseOne("Optional Products[]");
+    Function_PO.chooseMutiple("Optional Products[]");
     Function_PO.dropDown("courtesycar");
     cy.get("#preventerinsurancedata")
       .should("be.visible")
